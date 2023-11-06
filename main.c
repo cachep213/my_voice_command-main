@@ -75,8 +75,20 @@ int main(void)
 
     result = cyhal_gpio_init(CYBSP_USER_LED, CYHAL_GPIO_DIR_OUTPUT,
                       CYHAL_GPIO_DRIVE_STRONG, CYBSP_LED_STATE_OFF);
+
+    result = cyhal_gpio_init(DRIVE_1_PIN, CYHAL_GPIO_DIR_OUTPUT,
+                      CYHAL_GPIO_DRIVE_STRONG, CYBSP_LED_STATE_OFF);
+
+    result = cyhal_gpio_init(DRIVE_2_PIN, CYHAL_GPIO_DIR_OUTPUT,
+                      CYHAL_GPIO_DRIVE_STRONG, CYBSP_LED_STATE_OFF);
+
+    result = cyhal_gpio_init(MUSIC_PIN, CYHAL_GPIO_DIR_OUTPUT,
+                      CYHAL_GPIO_DRIVE_STRONG, CYBSP_LED_STATE_OFF);
+
+    result = cyhal_gpio_init(LIGHT_PIN, CYHAL_GPIO_DIR_OUTPUT,
+                      CYHAL_GPIO_DRIVE_STRONG, CYBSP_LED_STATE_OFF);
      /* User LED init failed. Stop program execution */
-     handle_error(result);
+     //handle_error(result);
 
 
     printf("\x1b[2J\x1b[;H");
@@ -156,26 +168,37 @@ void command_exec(uint32_t cmd_id)
 	switch(cmd_id)
 	{
 		case 1: // chair up
-			cyhal_gpio_write(CYBSP_USER_LED, CYBSP_LED_STATE_ON);
-			duty_cycle = 0.f;
+			cyhal_gpio_write(DRIVE_1_PIN, CYBSP_LED_STATE_OFF);
+			cyhal_gpio_write(DRIVE_2_PIN, CYBSP_LED_STATE_ON);
+			//duty_cycle = 0.f;
 			break;
 		case 2: // chair down
-			duty_cycle = 100.f;
+			cyhal_gpio_write(DRIVE_1_PIN, CYBSP_LED_STATE_ON);
+			cyhal_gpio_write(DRIVE_2_PIN, CYBSP_LED_STATE_OFF);
+			//duty_cycle = 100.f;
 			break;
 		case 3: // chair stop
-			duty_cycle = 50.f;
+			cyhal_gpio_write(DRIVE_1_PIN, CYBSP_LED_STATE_OFF);
+			cyhal_gpio_write(DRIVE_2_PIN, CYBSP_LED_STATE_OFF);
+			//duty_cycle = 50.f;
 			break;
 		case 4: // play music
-			duty_cycle = 25.f;
+			cyhal_gpio_write(MUSIC_PIN, CYBSP_LED_STATE_ON);
+
+			//duty_cycle = 25.f;
 			break;
 		case 5: // stop music
-			duty_cycle = 70.f;
+			cyhal_gpio_write(MUSIC_PIN, CYBSP_LED_STATE_OFF);
+			//duty_cycle = 70.f;
 			break;
 		case 6: // Light on
-			duty_cycle = 0.f;
+			cyhal_gpio_write(LIGHT_PIN, CYBSP_LED_STATE_ON);
+
+			//duty_cycle = 0.f;
 			break;
 		case 7: // light off
-			duty_cycle = 100.f;
+			cyhal_gpio_write(LIGHT_PIN, CYBSP_LED_STATE_OFF);
+			//duty_cycle = 100.f;
 			break;
 		default :
 			break;
